@@ -21,7 +21,7 @@
         else
         {
             Console.WriteLine("Enter your code!");
-            Console.Write("# ");
+            Console.Write(":: ");
             code = Console.ReadLine()!;
         }
 
