@@ -11,6 +11,7 @@
 
     static void Main()
     {
+        // Brainfuck bf = new Brainfuck();
         ReadCode();
         Run();
     }
@@ -34,6 +35,49 @@
                     codeLength++;
                     break;
             }
+        }
+    }
+
+    static void Run()
+    {
+        while (ip < codeLength)
+        {
+            char c = code[ip];
+            
+            if (c == '>')
+            {
+                MoveRight();
+            }
+            else if (c == '<')
+            {
+                MoveLeft();
+            }
+            else if (c == '+')
+            {
+                IncrementMemory();
+            }
+            else if (c == '-')
+            {
+                DecrementMemory();
+            }
+            else if (c == '.')
+            {
+                OutputChar();
+            }
+            else if (c == ',')
+            {
+                InputChar();
+            }
+            else if (c == '[')
+            {
+                JumpForward();
+            }
+            else if (c == ']')
+            {
+                JumpBackward();
+            }
+
+            ip++;
         }
     }
 
@@ -107,49 +151,6 @@
                     closing--;
                 }
             }
-        }
-    }
-
-    static void Run()
-    {
-        while (ip < codeLength)
-        {
-            char c = code[ip];
-            
-            if (c == '>')
-            {
-                MoveRight();
-            }
-            else if (c == '<')
-            {
-                MoveLeft();
-            }
-            else if (c == '+')
-            {
-                IncrementMemory();
-            }
-            else if (c == '-')
-            {
-                DecrementMemory();
-            }
-            else if (c == '.')
-            {
-                OutputChar();
-            }
-            else if (c == ',')
-            {
-                InputChar();
-            }
-            else if (c == '[')
-            {
-                JumpForward();
-            }
-            else if (c == ']')
-            {
-                JumpForward();
-            }
-
-            ip++;
         }
     }
 }
