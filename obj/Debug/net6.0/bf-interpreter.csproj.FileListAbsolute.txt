@@ -1,0 +1,15 @@
+D:\GitHub\bf-interpreter\bin\Debug\net6.0\bf-interpreter.exe
+D:\GitHub\bf-interpreter\bin\Debug\net6.0\bf-interpreter.deps.json
+D:\GitHub\bf-interpreter\bin\Debug\net6.0\bf-interpreter.runtimeconfig.json
+D:\GitHub\bf-interpreter\bin\Debug\net6.0\bf-interpreter.dll
+D:\GitHub\bf-interpreter\bin\Debug\net6.0\bf-interpreter.pdb
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.csproj.AssemblyReference.cache
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.AssemblyInfoInputs.cache
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.AssemblyInfo.cs
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.csproj.CoreCompileInputs.cache
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.dll
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\refint\bf-interpreter.dll
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.pdb
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\bf-interpreter.genruntimeconfig.cache
+D:\GitHub\bf-interpreter\obj\Debug\net6.0\ref\bf-interpreter.dll
