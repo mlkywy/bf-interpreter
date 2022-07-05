@@ -3,13 +3,14 @@ class Brainfuck
     private List<char> code = new List<char>();
     private List<byte> memory = new List<byte>();
 
-    private string program = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
+    private string program = "";
 
     private int ip = 0; // instruction pointer
     private int dp = 0; // data pointer
 
-    public Brainfuck()
+    public Brainfuck(string input)
     {
+        program = input;
         ReadCode();
         memory.Add(0);
     }
