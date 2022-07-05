@@ -27,7 +27,7 @@ dotnet run
 ```
 
 After running the program, you will be prompted to enter a line of Brainfuck code. The following example should return, ```Hello, World!``` in the terminal.
-```bf 
+```brainfuck 
 ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 ```
 The Main function will also take a filename string as an argument, and the program will read any .bf files in the root of the directory. The following command will read the ```program.bf``` file and output ```Hello, World!```
