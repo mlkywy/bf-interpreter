@@ -1,153 +1,172 @@
-class Brainfuck
+using System;
+using System.Collections.Generic;
+using bf_interpreter.Exceptions;
+
+namespace bf_interpreter
 {
-    private List<char> code = new List<char>();
-    private List<byte> memory = new List<byte>();
-
-    private string program = "";
-
-    private int ip = 0; // instruction pointer
-    private int dp = 0; // data pointer
-
-    public Brainfuck(string input)
+    class Brainfuck
     {
-        program = input;
-        ReadCode();
-        memory.Add(0);
-    }
+        private readonly List<char> _code = new ();
+        private readonly List<byte> _memory = new ();
 
-    private void ReadCode()
-    {
-        // Reading program into code array
-        for (int i = 0; i < program.Length; i++)
+        /// <summary>
+        /// Valid Brainfuck tokens 
+        /// </summary>
+        private readonly List<char> _tokens = new()
         {
-            switch (program[i])
+            '>',
+            '<',
+            '+',
+            '-',
+            '.',
+            ',',
+            '[',
+            ']'
+        };
+
+        private readonly string _program;
+        /// <summary>
+        /// Instruction pointer
+        /// </summary>
+        private int _ip;
+        
+        /// <summary>
+        /// Data pointer
+        /// </summary>
+        private int _dp; 
+
+        public Brainfuck(string input)
+        {
+            _program = input;
+            ReadCode();
+            _memory.Add(0);
+        }
+
+        private void ReadCode()
+        {
+            // Reading program into code array
+            foreach (var t in _program)
             {
-                case '>':
-                case '<':
-                case '+':
-                case '-':
-                case '.':
-                case ',':
-                case '[':
-                case ']':
-                    code.Add(program[i]);
-                    break;
+                if (_tokens.Contains(t))
+                {
+                    _code.Add(t);
+                }
             }
         }
-    }
 
-    public void Run()
-    {
-        while (ip < code.Count)
+        public void Run()
         {
-            char c = code[ip];
+            while (_ip < _code.Count)
+            {
+                var c = _code[_ip];
             
-            if (c == '>')
-            {
-                MoveRight();
-            }
-            else if (c == '<')
-            {
-                MoveLeft();
-            }
-            else if (c == '+')
-            {
-                IncrementData();
-            }
-            else if (c == '-')
-            {
-                DecrementData();
-            }
-            else if (c == '.')
-            {
-                OutputChar();
-            }
-            else if (c == ',')
-            {
-                InputChar();
-            }
-            else if (c == '[')
-            {
-                JumpForward();
-            }
-            else if (c == ']')
-            {
-                JumpBackward();
-            }
-
-            ip++;
-        }
-    }
-
-
-    private void MoveRight()
-    {
-        dp++;
-        memory.Add(0);
-    }
-
-    private void MoveLeft()
-    {
-        dp--;
-    }
-
-    private void IncrementData()
-    {
-        memory[dp]++; 
-    }
-
-    private void DecrementData()
-    {
-        memory[dp]--;
-    }
-
-    private void OutputChar()
-    {
-        char character = (char)memory[dp];
-        Console.Write(character);
-    }
-
-    private void InputChar()
-    {
-        byte input = Convert.ToByte(Console.Read());
-        memory[dp] = input;
-    }
-
-    private void JumpForward()
-    {
-        if (memory[dp] == 0)
-        {
-            int opening = 1;
-            while (opening != 0)
-            {
-                ip++;
-                if (code[ip] == '[')
+                switch (c)
                 {
-                    opening++;
+                    case '>':
+                        MoveRight();
+                        break;
+                    case '<':
+                        MoveLeft();
+                        break;
+                    case '+':
+                        IncrementData();
+                        break;
+                    case '-':
+                        DecrementData();
+                        break;
+                    case '.':
+                        OutputChar();
+                        break;
+                    case ',':
+                        InputChar();
+                        break;
+                    case '[':
+                        JumpForward();
+                        break;
+                    case ']':
+                        JumpBackward();
+                        break;
+                    default:
+                        throw new InvalidOperationException();
                 }
-                else if (code[ip] == ']')
-                {
-                    opening--;
-                }
+
+                _ip++;
             }
         }
-    }
 
-    private void JumpBackward()
-    {
-        if (memory[dp] != 0)
+
+        private void MoveRight()
         {
-            int closing = 1;
-            while (closing != 0)
+            _dp++;
+            if (_dp == _memory.Count)
             {
-                ip--;
-                if (code[ip] == ']')
+                _memory.Add(0);
+            }
+        }
+
+        private void MoveLeft()
+        {
+            _dp--;
+            if (_dp < 0)
+            {
+                var memoryError = new InvalidMemoryAccess(_dp);
+                Console.WriteLine(memoryError.ErrorMessage);
+                throw memoryError;
+            }
+        }
+
+        private void IncrementData()
+        {
+            _memory[_dp]++;
+        }
+
+        private void DecrementData()
+        {
+            _memory[_dp]--;
+        }
+
+        private void OutputChar() => Console.Write((char)_memory[_dp]);
+
+        private void InputChar() => _memory[_dp] = Convert.ToByte(Console.Read());
+
+        private void JumpForward()
+        {
+            if (_memory[_dp] == 0)
+            {
+                int opening = 1;
+                while (opening != 0)
                 {
-                    closing++;
+                    _ip++;
+                    switch (_code[_ip])
+                    {
+                        case '[':
+                            opening++;
+                            break;
+                        case ']':
+                            opening--;
+                            break;
+                    }
                 }
-                else if (code[ip] == '[')
+            }
+        }
+
+        private void JumpBackward()
+        {
+            if (_memory[_dp] != 0)
+            {
+                int closing = 1;
+                while (closing != 0)
                 {
-                    closing--;
+                    _ip--;
+                    switch (_code[_ip])
+                    {
+                        case ']':
+                            closing++;
+                            break;
+                        case '[':
+                            closing--;
+                            break;
+                    }
                 }
             }
         }
