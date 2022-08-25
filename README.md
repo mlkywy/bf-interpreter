@@ -37,7 +37,7 @@ dotnet run "program.bf"
 ```
 
 ## Contributors
-- [Alina](https://github.com/alshei)
+- [Alina](https://github.com/mlkywy)
 - [Nearly](https://github.com/nearly4ever)
 - [Charlie](https://github.com/Peekoe)
 
